@@ -7,7 +7,7 @@
 %% merlin.mbs  (with options: `seq-no,vonx,ed-au,nmlm,x2,m1,yr-com,xmth,tit-qq,qx,atit-u,jxper,trtit-b,volp-com,jwdpg,pp-last,num-xser,pre-pub,edpar,edby,blk-com,pp,ed,abr,ord,url,url-blk,nfss')
 %% ----------------------------------------
 %% *** tufte handout bibliography style ***
-%% 
+%%
 %% Copyright 1994-2002 Patrick W Daly
  % ===============================================================
  % IMPORTANT NOTICE:

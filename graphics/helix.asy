@@ -22,4 +22,3 @@ yaxis(rotate(Y)*"$y$",all=true,b,red,RightTicks(rotate(Y)*Label,2,2));
 zaxis("$z$",all=true,b,red,RightTicks);
 
 draw(p,Arrow);
-

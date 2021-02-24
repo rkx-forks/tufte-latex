@@ -1,0 +1,101 @@
+%%
+% Title block
+
+%\def\headertitle#1{\def\@headertitle{#1}}
+%\newcommand{\printheadertitle}{\@headertitle}
+
+
+\def\slipcardpdf#1{\def\@slipcardpdf{#1}}
+\newcommand{\getslipcardpdf}{\@slipcardpdf}
+
+\def\slipcarddoc#1{\def\@slipcarddoc{#1}}
+\newcommand{\getslipcarddoc}{\@slipcarddoc}
+
+\def\slipcardgit#1{\def\@slipcardgit{#1}}
+\newcommand{\getslipcardgit}{\@slipcardgit}
+
+\def\slipcardmail#1{\def\@slipcardmail{#1}}
+\newcommand{\getslipcardmail}{\@slipcardmail}
+
+\def\slipcardidea#1{\def\@slipcardidea{#1}}
+\newcommand{\getslipcardidea}{\@slipcardidea}
+
+\def\slipcardcal#1{\def\@slipcardcal{#1}}
+\newcommand{\getslipcardcal}{\@slipcardcal}
+
+\def\printdate#1{\def\@printdate{#1}}
+\newcommand{\getprintdate}{\@printdate}
+
+\def\doctype#1{\def\@doctype{#1}}
+\newcommand{\getdoctype}{\@doctype}
+
+
+\def\logo#1{\def\@logo{#1}}
+\newcommand{\getlogo}{\@logo}
+
+
+% define background logo
+\newcommand\BackImage[2][scale=1]{%
+  \BgThispage
+  \backgroundsetup{%
+    position=current page.north east,
+    hshift=-1.35in,
+    vshift=-0.5in,
+    opacity=1.0,
+    contents={\includegraphics[#1]{#2}}
+  }
+}
+
+\renewcommand{\maketitle}{%
+
+  % insert logo
+  % TODO parameterize logo
+  \BackImage[width=1.25in]{\getlogo}
+
+  \begin{flushleft}
+  \hypersetup{
+     urlcolor=DarkGray
+  }
+  \hspace*{-2.5mm} % TODO disable table border and avoid explicit adjustment
+  \begin{tabular}{llllll}
+    \qrcode[height=1cm]{\getslipcardpdf} &
+    \qrcode[height=1cm]{\getslipcarddoc} &
+    \qrcode[height=1cm]{\getslipcardgit} &
+    \qrcode[height=1cm]{\getslipcardmail} &
+    \qrcode[height=1cm]{\getslipcardcal} &
+    \qrcode[height=1cm]{\getslipcardidea} \\
+    \begin{scriptsize}pdf\end{scriptsize} &
+    \begin{scriptsize}doc\end{scriptsize} &
+    \begin{scriptsize}git\end{scriptsize} &
+    \begin{scriptsize}mail\end{scriptsize} &
+    \begin{scriptsize}calendar\end{scriptsize} &
+    \begin{scriptsize}idea\end{scriptsize} \\
+  \end{tabular}
+\end{flushleft}
+
+
+
+  \global\@topnum\z@% prevent floats from being placed at the top of the page
+  \begingroup
+    \setlength{\parindent}{0pt}%
+    \setlength{\parskip}{4pt}%
+    \let\@@title\@empty
+    \let\@@author\@empty
+    \let\@@date\@empty
+    \ifthenelse{\boolean{@tufte@sfsidenotes}}{%
+      \gdef\@@title{\sffamily\LARGE\color{Black}\allcaps{\@title}\par}%
+      \gdef\@@author{\sffamily\small\color{Blue}\allcaps{\@author}\par}%
+      \gdef\@@date{\sffamily\normalsize\color{Gray}\allcaps{\@date}\par}%
+    }{%
+      \gdef\@@title{\LARGE\sffamily\bfseries\color{Black}\@title\par}%
+      \gdef\@@author{\normalfont\small\normalfont\textsc{\color{Gray}\getdoctype~\color{Blue}\@author}\par}%
+      \gdef\@@date{\raggedleft\normalfont\footnotesize\color{Black}\textsc{\getprintdate~\color{Gray}\@date}\par}%
+    }%
+    \@@title
+    \@@author
+    \@@date
+  \endgroup
+  \thispagestyle{plain}% suppress the running head
+  \tuftebreak% add some space before the text begins
+  \@afterindentfalse\@afterheading% suppress indentation of the next paragraph
+}

@@ -1,0 +1,159 @@
+%%
+% If we're NOT using XeLaTeX and the `nofonts' class option was NOT provided,
+% we should load the Palatino, Helvetica, and Bera Mono fonts (if they are
+% installed.)
+
+% This generates an error: Command \copyright unavailable in encoding
+% use \textcopyright instead
+
+
+\ifthenelse{\boolean{@tufte@loadfonts}\AND\NOT\boolean{@tufte@xetex}\AND\NOT\boolean{@tufte@luatex}}{%
+  % \RequirePackage[osf,scaled=.92]{heuristica} % heuristica (derived from fourier) is used for text
+  %\RequirePackage{lmodern}
+  \RequirePackage[heuristica,vvarbb,bigdelims]{newtxmath}
+  %\RequirePackage[regular]{Chivo} %% Option 'familydefault' only if the base font of the document is to be sans serif
+  \RequirePackage[ttdefault=true,scale=0.8]{AnonymousPro}
+  \RequirePackage[T1]{fontenc}
+  \RequirePackage{textcomp}
+}{}
+
+%%
+% Make Tuftian-style section headings and TOC formatting
+
+\titleformat{\chapter}%
+  [display]% shape
+  {\color{Maroon}\relax\ifthenelse{\NOT\boolean{@tufte@symmetric}}{\begin{fullwidth}}{}}% format applied to label+text
+  {\huge\thechapter}% label
+  {0pt}% horizontal separation between label and title body
+  {\huge\sffamily\bfseries}% before the title body
+  [\ifthenelse{\NOT\boolean{@tufte@symmetric}}{\end{fullwidth}}{}]% after the title body
+
+\titleformat{\section}%
+  [hang]% shape
+  {\Large\sffamily\bfseries\color{NavyBlue}}% format applied to label+text
+  {\thesection}% label
+  {1em}% horizontal separation between label and title body
+  {}% before the title body
+  []% after the title body
+
+\titleformat{\subsection}%
+  [hang]% shape
+  {\normalsize\sffamily\bfseries\color{Maroon}}% format applied to label+text
+  {\thesubsection}% label
+  {1em}% horizontal separation between label and title body
+  {}% before the title body
+  []% after the title body
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\RequirePackage{xparse}
+\RequirePackage{tikz}
+\usetikzlibrary{intersections,arrows,chains,matrix,positioning,scopes}
+\RequirePackage{amsmath}  % extended mathematics
+% conflict for Bbbk
+% https://tex.stackexchange.com/questions/161159/math-times-pro-2-and-txfontsb
+\let\Bbbk\relax
+\RequirePackage{booktabs} % book-quality tables
+\RequirePackage{units}    % non-stacked fractions and better unit spacing
+\RequirePackage{siunitx}
+\RequirePackage{enumitem}
+
+\RequirePackage[pages=some,placement=top,scale=1,angle=0]{background}
+
+\RequirePackage{listings}
+\RequirePackage{chemfig} % chemistry diagrams
+\RequirePackage[version=3]{mhchem}
+%\RequirePackage{caption} % conflicts with previously loaded version
+\RequirePackage{multicol} % multiple column layout facilities
+% The fancyvrb package lets us customize the formatting of verbatim
+% environments.  We use a slightly smaller font.
+\RequirePackage{fancyvrb} % extended verbatim environments
+  \fvset{fontsize=\normalsize}% default font size for fancy-verbatim environments
+% For graphics / images
+\RequirePackage{graphicx}
+  \setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
+  \graphicspath{{graphics/}}
+\RequirePackage{svg}
+% Generate pygment artifacts into `build` folder
+% \RequirePackage[outputdir=build]{minted}
+\RequirePackage[newfloat]{minted}
+\usemintedstyle{solarizedlight}
+\RequirePackage[dvipsnames]{xcolor}
+\definecolor{CodeBg}{HTML}{FDF6E3}
+
+% remove separation for all lists
+\setlist{nosep}
+
+% In-line code listing
+% See https://is.gd/XWiPMg
+% For example:
+%
+% \begin{codelisting}{python}{a caption}{code:label}
+% import os
+% print(os.environ["HOME"])
+% \end{codelisting}
+%
+% Font size is set specifically for listings to ensure 80 characters
+% fit on letter size page
+%
+% https://bit.ly/3bQzW3z
+
+% :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+% NOTE: environment names must be ascii only with no dashes
+% :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+% \newenvironment{codelisting}[4][]
+%  {\VerbatimEnvironment
+%   \begin{figure}
+%   \caption[][9pt]{#3}\label{#4}
+%   \begin{minted}[
+%     bgcolor=CodeBg,
+%     fontsize=\fontsize{8}{6},
+%     frame=lines,
+%     rulecolor=CodeBg,
+%     xleftmargin=4mm,
+%     framesep=4mm,
+%     #1]{#2}}
+%  {\end{minted}\end{figure}}
+
+
+\newenvironment{codelisting}[4][]
+ {\VerbatimEnvironment
+  \begin{listing}
+  \caption[][9pt]{#3}\label{#4}
+  \begin{minted}[
+    bgcolor=CodeBg,
+    fontsize=\fontsize{8}{6},
+    frame=lines,
+    rulecolor=CodeBg,
+    xleftmargin=4mm,
+    framesep=4mm
+    #1]{#2}}
+ {\end{minted}\end{listing}}
+
+
+
+% code listing loading from external file
+% TODO not currently used
+\newenvironment{codefile}[5][]
+ {\begin{listing}
+  \caption[][9pt]{#3 (\texttt{#5})}\label{#4}
+  \inputminted[
+    bgcolor=CodeBg,
+    fontsize=\small,
+    frame=lines,
+    rulecolor=CodeBg,
+    xleftmargin=4mm,
+    framesep=4mm,
+    #1]{#2}{#5}}
+ {\end{listing}}
+
+% Set caption font
+% https://tex.stackexchange.com/questions/235868/how-to-make-the-figure-caption-figure-1-5-bold-in-tufte-latex
+% Note that text portion of caption will need \mdseries to revert to normal weight
+% \setcaptionfont{\footnotesize\bfseries}
+\setcaptionfont{\footnotesize}
+
+
+% color used for alternating table rows
+\definecolor{rkx_row_color}{RGB}{192,255,192}

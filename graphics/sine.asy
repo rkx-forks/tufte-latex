@@ -13,4 +13,3 @@ xaxis("$x$");
 yaxis("$y$");
 
 draw(graph(f,-10.,10,operator ..), red);
-
