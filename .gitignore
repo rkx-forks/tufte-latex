@@ -133,4 +133,5 @@ Session.vim
 .netrwhist
 *~
 
-
+auto
+.redo
