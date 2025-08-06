@@ -87,10 +87,10 @@
 % Inserts a blank page
 \newcommand{\blankpage}{\newpage\hbox{}\thispagestyle{empty}\newpage}
 
-\usepackage{units}
+%\usepackage{units} % commented out, using siunitx instead
 
 % Typesets the font size, leading, and measure in the form of 10/12x26 pc.
-\newcommand{\measure}[3]{#1/#2$\times$\unit[#3]{pc}}
+\newcommand{\measure}[3]{#1/#2$\times$\SI{#3}{pc}}
 
 % Macros for typesetting the documentation
 \newcommand{\hlred}[1]{\textcolor{Maroon}{#1}}% prints in red
@@ -456,7 +456,7 @@ The following characteristics define the various environments:
       Environment & Font size & Notes \\
       \midrule
       Body text & \measure{10}{14}{26} & \\
-      Block quote & \measure{9}{12}{24} & Block indent (left and right) by \unit[1]{pc} \\
+      Block quote & \measure{9}{12}{24} & Block indent (left and right) by \SI{1}{pc} \\
       Sidenotes & \measure{8}{10}{12} & Sidenote number is set inline, followed by word space \\
       Captions & \measure{8}{10}{12} &  \\
       \bottomrule
@@ -660,11 +660,11 @@ the table's data.
     \toprule
     Margin & Length \\
     \midrule
-    Paper width & \unit[8\nicefrac{1}{2}]{inches} \\
-    Paper height & \unit[11]{inches} \\
-    Textblock width & \unit[6\nicefrac{1}{2}]{inches} \\
-    Textblock/sidenote gutter & \unit[\nicefrac{3}{8}]{inches} \\
-    Sidenote width & \unit[2]{inches} \\
+    Paper width & \SI{8.5}{inches} \\
+    Paper height & \SI{11}{inches} \\
+    Textblock width & \SI{6.5}{inches} \\
+    Textblock/sidenote gutter & \SI{0.375}{inches} \\
+    Sidenote width & \SI{2}{inches} \\
     \bottomrule
   \end{tabular}
   \caption{Here are the dimensions of the various margins used in the Tufte-handout class.}

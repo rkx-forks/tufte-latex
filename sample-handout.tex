@@ -13,7 +13,7 @@
   \graphicspath{{graphics/}} % set of paths to search for images
 \usepackage{amsmath}  % extended mathematics
 \usepackage{booktabs} % book-quality tables
-\usepackage{units}    % non-stacked fractions and better unit spacing
+%\usepackage{units}    % non-stacked fractions and better unit spacing - commented out, using siunitx instead
 \usepackage{multicol} % multiple column layout facilities
 \usepackage{lipsum}   % filler text
 \usepackage{fancyvrb} % extended verbatim environments
@@ -217,11 +217,11 @@ the table's data.
     \toprule
     Margin & Length \\
     \midrule
-    Paper width & \unit[8\nicefrac{1}{2}]{inches} \\
-    Paper height & \unit[11]{inches} \\
-    Textblock width & \unit[6\nicefrac{1}{2}]{inches} \\
-    Textblock/sidenote gutter & \unit[\nicefrac{3}{8}]{inches} \\
-    Sidenote width & \unit[2]{inches} \\
+    Paper width & \SI{8.5}{inches} \\
+    Paper height & \SI{11}{inches} \\
+    Textblock width & \SI{6.5}{inches} \\
+    Textblock/sidenote gutter & \SI{0.375}{inches} \\
+    Sidenote width & \SI{2}{inches} \\
     \bottomrule
   \end{tabular}
   \caption{Here are the dimensions of the various margins used in the Tufte-handout class.}
